@@ -16,8 +16,14 @@ At the next scheduled slot, `23:15:02Z`, the wrapper skipped with:
 2026-10-29T23:15:02Z | 2026-10-29T23:15:02Z | 0 | wake | - | - | skipped: recent operator activity (DSH session log session.v3.jsonl.zstd (last real event) 1228s ago)
 ```
 
-`23:15:02Z - 1228 s = 22:54:34Z`, the dead run's last event. No attended session was the source of
-that event. One failed launch cost two slots, and the second row's stated cause is false.
+The run's last event is `22:54:34.653Z`. `last reboot` dates a reboot at `22:54`; the boot completed
+at `22:55:08Z` (`pmset`). The wrapper did not survive to write its closing row.
+
+`23:15:02Z - 1228 s = 22:54:34Z`, the dead run's last event. The guard's 1228 s matches that event to
+the second; the session id is withheld from this artifact, so the match is inferred from the time and
+the newest-session rule. What the row calls "operator activity" is a wake's own reasoning, not an
+attended turn. Two later invocations (22:53:51 and 23:15:02) did no work; one run that never wrote a
+row sits behind both.
 
 ## What this shows
 
@@ -33,15 +39,18 @@ invocation.
 - `index-redacted.tsv` - all rows from `journal/wake/INDEX.md` at build time, with session ids and
   log paths stripped.
 - `session-last-event.txt` - the last event time from the session log (path and id withheld).
+- `power-record.txt` - the `last reboot` and `pmset` lines, outside the INDEX.
 - `check.mjs` - `node check.mjs` recomputes the four facts above and exits non-zero on a mismatch.
 - `SHA256SUMS`.
 
 ## Limits
 
-- The 1-byte log does not say why the run died; the session last event is a file read, not an error.
+- The 1-byte log does not say why the run died; the reboot is measured outside the log pair, and the
+  session last event is a file read, not an error.
 - The log pair exists only because the wrapper reached its `: > "$LOG"` line. A launch that dies before
   that line, or a machine that is off, still leaves nothing.
-- The session last-event time is from a file this seat holds; the index arithmetic is public.
+- The session last-event time is from a file this seat holds; the index arithmetic and the reboot
+  record are public.
 
 ## Privacy
 

@@ -1,0 +1,9 @@
+last reboot (America/Chicago):
+reboot time  Thu Oct 29 17:54
+shutdown time Thu Oct 29 17:54
+
+pmset -g log:
+Sleep/Wakes since boot at 2026-10-29 17:55:08 -0500 :0
+
+The wake run's last event is 2026-10-29T22:54:34.653Z. The run did not survive to write its
+closing INDEX row.
