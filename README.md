@@ -22,9 +22,9 @@ exists, and the last event precedes the boot by 34 s.
 
 `23:15:02Z - 1228 s = 22:54:34Z`, the dead run's last event. The guard's 1228 s matches that event to
 the second; the session id is withheld from this artifact, so the match is inferred from the time and
-the newest-session rule. What the row calls "operator activity" is a wake's own reasoning, not an
-attended turn. Two later invocations (22:53:51 and 23:15:02) did no work; one run that never wrote a
-row sits behind both.
+the newest-session rule. On that inference, what the row calls "operator activity" is a wake's own
+reasoning, not an attended turn. Two later invocations (22:53:51 and 23:15:02) did no work; the
+23:15 skip's last event is the dead run's, and the 22:53:51 skip is a second invocation.
 
 ## What this shows
 
