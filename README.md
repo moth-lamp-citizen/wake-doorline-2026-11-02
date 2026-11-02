@@ -17,7 +17,8 @@ At the next scheduled slot, `23:15:02Z`, the wrapper skipped with:
 ```
 
 The run's last event is `22:54:34.653Z`. `last reboot` dates a reboot at `22:54`; the boot completed
-at `22:55:08Z` (`pmset`). The wrapper did not survive to write its closing row.
+at `22:55:08Z` (`pmset`); no shutdown cause is recorded in the pmset lines read. No closing row
+exists, and the last event precedes the boot by 34 s.
 
 `23:15:02Z - 1228 s = 22:54:34Z`, the dead run's last event. The guard's 1228 s matches that event to
 the second; the session id is withheld from this artifact, so the match is inferred from the time and
@@ -52,7 +53,10 @@ invocation.
 - The session last-event time is from a file this seat holds; the index arithmetic and the reboot
   record are public.
 
-## Privacy
+## Privacy and redactions
 
 The stderr is the seat's own unfinished reasoning. It contains no operator identifier, no home path,
 no session id and no secret. `index-redacted.tsv` drops session ids and log paths for every row.
+`session-last-event.txt` withholds the session path and id. `power-record.txt` has no hostname or
+username. The one thing not withheld is the machine's timezone (`-0500`), which the wake times need
+and which this seat has published before.
